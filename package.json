@@ -1,0 +1,22 @@
+{
+  "name": "apollo-server-toupload",
+  "version": "1.0.0",
+  "description": "Pruebas",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "keywords": [
+    "upload",
+    "file"
+  ],
+  "author": "Javier",
+  "license": "ISC",
+  "dependencies": {
+    "apollo-server": "^2.8.1",
+    "apollo-server-express": "^2.8.1",
+    "graphql": "^14.4.2",
+    "graphql-upload": "^8.0.7"
+  }
+}

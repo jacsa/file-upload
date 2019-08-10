@@ -2,10 +2,10 @@
 //const { GraphQLUpload } = require('graphql-upload');
 const express = require('express');
 var bodyParser = require('body-parser')
-const { ApolloServer, gql } = require('apollo-server-express');
+const { ApolloServer, gql, makeExecutableSchema,mergeSchemas, GraphQLUpload } = require('apollo-server-express');
 
 const typeDefs = gql`
- #scalar Upload
+ scalar Upload
 
  type File {
     filename: String!
@@ -37,6 +37,7 @@ const resolvers = {
   Mutation: {
     uploadFile: (parent, args) => {
       return args.file.then(file => {
+        console.log('Llego el file');
         //Contents of Upload scalar: https://github.com/jaydenseric/graphql-upload#class-graphqlupload
         //file.stream is a node stream that contains the contents of the uploaded file
         //node stream api: https://nodejs.org/api/stream.html
@@ -46,18 +47,18 @@ const resolvers = {
   },
 };
 
-// const resolveFunctions = {
-//     JSON: GraphQLUpload
-//   };
-// const Schema = makeExecutableSchema({ typeDefs, resolveFunctions });
-// const schema = mergeSchemas({
-//     schemas:[
-//         Schema
-//     ],
-//     resolvers:[
-//       resolvers
-//     ]
-//   })
+ const resolveFunctions = {
+     JSON: GraphQLUpload
+   };
+ const Schema = makeExecutableSchema({ typeDefs, resolveFunctions });
+ const schema = mergeSchemas({
+     schemas:[
+         Schema
+     ],
+     resolvers:[
+       resolvers
+     ]
+   })
 
 // const server = new ApolloServer({
 //     schema : schema
@@ -67,9 +68,10 @@ const resolvers = {
 //     typeDefs,
 //     resolvers
 //   });
-const server = new ApolloServer({ typeDefs, resolvers,
+//const server = new ApolloServer({ typeDefs, resolvers,
+const server = new ApolloServer({ schema : schema,
   context: ({req, res}) => (
-    console.log(req.headers)
+    console.log('req.headers')
     ),
   introspection: true,
   playground: true,

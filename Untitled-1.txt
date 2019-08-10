@@ -1,0 +1,2 @@
+{"query":"mutation {\n uploadFile(file:Upload){\n  filename\n  mimetype\n  encoding\n}\n  \n}"}
+https://medium.com/@dilipkumar/graphql-and-file-upload-using-react-and-node-js-c1d629e1b86b
